@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+        }
+        td{
+            border: 1px solid blue;
+            font-size: 30pt;
+            text-align: center;
+            width: 60px;
+            height: 60px;
+        }
+        span{
+            color: tomato;
+            font-size: 20pt;
+            font-weight: bold;
+        }
+        button{
+            font-size: 15pt;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Click to start</h2>
+    </div>
+    <div>
+        <h4>Timer:&nbsp;</h4><span id="time">30</span>&nbsp;sec
+    </div>
+    <div class="main">
+        <table id="tab">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin-top: 20px;">
+        <button onclick="location.reload()">Restart</button>
+    </div>
+
+    <script>
+        let tsvet = ["#4287f5", "#3eff3b", "#3eff3b", "#1f6935", "#424980", "#fc05f0", "#7c4bd1", "#e02f5e", "#3eff3b", "#691f33", "#fc0505", "#05f4fc", "#00b035", "#7c4bd1", "#4287f5", "#3eff3b", "#3eff3b", "#fc0505", "#b09e00", "#fc05f0", "#69491f", "#4287f5", "#fae846", "#3eff3b", "#fc0505"];
+        let fonts = [];
+        for(let i=0; i<25; i++){
+            let p1 = Math.round(Math.random() * 10);
+            let p2 = Math.round(Math.random() * 10);
+            fonts[i] = p1 + p2 + 10;
+        }
+        let mas = [];
+        for(let i=0; i<25; i++){
+            mas[i]=i+1;
+        }
+
+        function perem(u) {
+            u.sort(() => Math.random() - 0.5);
+        }
+
+        perem(mas);
+        perem(tsvet);
+        perem(fonts);
+
+        let arrTab = document.querySelectorAll("td");
+
+        for(let i=0; i<25; i++){
+            arrTab[i].innerText = mas[i];
+        }
+
+        for(let i=0; i<25; i++){
+            arrTab[i].style.color = tsvet[i];
+        }
+
+        for(let i=0; i<25; i++){
+            arrTab[i].style.fontSize = fonts[i] + "pt";
+        }
+
+        let r=0;
+        tab.onclick = function(event) {
+            let target = event.target;
+            if (target.tagName != 'TD' || target.id=="met") return;
+            if(r==0){
+                setInterval(s => {
+                    time.innerText--;
+                    if(time.innerText==0){ alert("You lose!"); location.reload();}
+                }, 1000);
+                r=1;
+            }
+            highlight(target); 
+        };
+
+        let zap = 0;
+        function highlight(td) {
+            if(td.innerText==zap+1){
+                td.style.backgroundColor = "green";
+                zap++;
+                td.id = "met";
+            }
+            else if(td.innerText!=zap){
+                td.style.backgroundColor = "#ff5e45";
+                setTimeout(a=>{td.style.backgroundColor = "transparent"}, 300);
+            }
+            if(zap==25){
+                alert("Victory!");
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
